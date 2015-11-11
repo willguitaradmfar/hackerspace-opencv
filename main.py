@@ -7,13 +7,6 @@ import cv2
 from algoritimos.track import Track
 from algoritimos.face import Face
 
-# from utils.geometria import Geometria
-#
-#
-# g = Geometria();
-#
-# print(g.isPointInPoly([(0,0), (0,1), (1,1), (1,0)], (0.5,0.5)));
-
 
 track = Track();
 
