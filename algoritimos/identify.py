@@ -9,7 +9,6 @@ from domain.point import Point
 from domain.label import Label
 
 g = Geometria();
-c = Crop()
 
 class Identify:
     def __init__(self, M=20):
@@ -42,10 +41,12 @@ class Identify:
                             texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area),("H: %0.0f" % h), (poly)]
                             Label(self.track.frame, center, texts)
                             hasPoly = True
+                            center.setAreaName(poly)
                     if not hasPoly:
                         area = center.w * center.h
                         texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("H: %0.0f" % h), ("Sem area")]
                         Label(self.track.frame, center, texts)
+                        center.setAreaName(None)
 
         self._centers = centers
 
