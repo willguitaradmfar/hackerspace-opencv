@@ -39,16 +39,22 @@ poly2.addLine(l4);
 dictPoly['Dentro'] = poly2
 
 
-track = Track(1000, (70 * 1000));
+track = Track(1000, (100 * 1000));
 
-stream = Video("videos/videoTotvsCatraca.mp4");
+stream = Cam();
 
-identifyMoviment = Identify(30)
+identifyMoviment = Identify(60)
 identifyMoviment.setTrack(track)
+
+count = 0
 
 while(True):
 
     frame = stream.getFrame()
+
+    if count < 100:
+        count += 1
+        continue
 
     poly1.setFrame(frame)
     poly1.draw()

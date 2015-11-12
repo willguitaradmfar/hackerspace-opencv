@@ -37,7 +37,7 @@ class Identify:
                     cv2.rectangle(self.track.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
                     hasPoly = False
                     for poly in dictPoly:
-                        if dictPoly[poly].conteinsPoint(Point(center.px, center.py)):
+                        if dictPoly[poly].containsPoint(Point(center.px, center.py)):
                             area = center.w * center.h
                             texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area),("H: %0.0f" % h), (poly)]
                             Label(self.track.frame, center, texts)

@@ -16,7 +16,7 @@ class Polygon:
     def addLine(self, line):
         self.lines.insert(0, line)
 
-    def conteinsPoint(self, point):
+    def containsPoint(self, point):
         return geometria.isPointInPolyAsClass(self, point)
 
     def draw(self):
