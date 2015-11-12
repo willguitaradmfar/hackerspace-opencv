@@ -1,11 +1,16 @@
 import numpy as np
 import cv2
 
+from domain.center import Center
+
 class Track:
-    def __init__(self):
+    def __init__(self, minArea=1000, maxArea=(1000 * 10)):
+        Track.id = 0
         self.backgroundSubtractorKNN = cv2.createBackgroundSubtractorKNN()
         self.firstFrame = None
-        self.minArea = 1000
+        self.minArea = minArea
+        self.maxArea = maxArea
+        print("minArea: %s, maxArea: %s" % (self.minArea, self.maxArea))
 
     def setFrame(self, frame):
         self.frame = frame
@@ -34,25 +39,12 @@ class Track:
         self.dilation = cv2.dilate(thresh,self.kernel,iterations = 8)
         self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 5)
 
-    def drawPoint(self):
+    def getCenters(self):
         (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        self.centers = [];
         for i in range(0, len(a)):
-                if cv2.contourArea(a[i]) > self.minArea :
+                if cv2.contourArea(a[i]) > self.minArea and cv2.contourArea(a[i]) < self.maxArea :
                         x,y,w,h = cv2.boundingRect(a[i])
-                        cv2.circle(self.firstFrame,(x+(w/2),y+(h/2)), 3, (0,255,0))
-
-    def drawPointPredicate(self, predicate):
-        if predicate.has():
-            (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            for i in range(0, len(a)):
-                    if cv2.contourArea(a[i]) > self.minArea :
-                            x,y,w,h = cv2.boundingRect(a[i])
-                            cv2.circle(self.firstFrame,(x+(w/2),y+(h/2)), 5, (255,0,0))
-
-
-    def drawRectangle(self):
-        (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        for i in range(0, len(a)):
-                if cv2.contourArea(a[i]) > self.minArea :
-                        x,y,w,h = cv2.boundingRect(a[i])
-                        cv2.rectangle(self.frame,(x,y),(x+w,y+h),(0,255,0),2)
+                        self.centers.insert(0, Center(x, y, w, h, Track.id))
+                Track.id += 1
+        return self.centers

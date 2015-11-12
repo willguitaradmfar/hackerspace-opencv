@@ -27,3 +27,19 @@ class Geometria:
             j = i
             i += 1
         return c
+
+    def isPointInPolyAsClass(self, poly, point):
+        _point = (point.x,point.y)
+        _poly = []
+        for p in poly.lines:
+            _poly.insert(0, (p.pointI.x, p.pointI.y))
+        return self.isPointInPoly(_poly, _point)
+
+    def distance(self, point1, point2):
+
+        modX = math.fabs(point1[0] - point2[0])
+        modY = math.fabs(point1[1] - point2[1])
+
+        hipotenusa = math.sqrt(modX*modX + modY*modY)
+
+        return hipotenusa
