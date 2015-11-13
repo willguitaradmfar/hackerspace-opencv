@@ -39,11 +39,11 @@ poly2.addLine(l4);
 dictPoly['Marginal'] = poly2
 
 
-track = Track(1000, (50 * 1000));
+track = Track(50,20,1000, (50 * 1000));
 
 stream = Video("videos/videoTotvs.mp4");
 
-identifyMoviment = Identify(30)
+identifyMoviment = Identify(8)
 identifyMoviment.setTrack(track)
 
 while(True):

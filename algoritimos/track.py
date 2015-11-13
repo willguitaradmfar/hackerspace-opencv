@@ -4,12 +4,14 @@ import cv2
 from domain.center import Center
 
 class Track:
-    def __init__(self, minArea=1000, maxArea=(1000 * 10)):
+    def __init__(self, percW, percError=20, minArea=1000, maxArea=(1000 * 10)):
         Track.id = 0
         self.backgroundSubtractorKNN = cv2.createBackgroundSubtractorKNN()
         self.firstFrame = None
         self.minArea = minArea
         self.maxArea = maxArea
+        self.percW = percW
+        self.percError = percError
         print("minArea: %s, maxArea: %s" % (self.minArea, self.maxArea))
 
     def setFrame(self, frame):
@@ -41,10 +43,18 @@ class Track:
 
     def getCenters(self):
         (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        self.centers = [];
+        self.centers = []
+
         for i in range(0, len(a)):
-                if cv2.contourArea(a[i]) > self.minArea and cv2.contourArea(a[i]) < self.maxArea :
-                        x,y,w,h = cv2.boundingRect(a[i])
-                        self.centers.insert(0, Center(x, y, w, h, Track.id))
-                Track.id += 1
+                x,y,w,h = cv2.boundingRect(a[i])
+                if w*h > self.minArea and w*h < self.maxArea:
+                    center = Center(x, y, w, h, Track.id)
+                    percW, percY = center.getMetrica()
+                    
+                    percWMax = self.percW + self.percError
+                    percWMin = self.percW - self.percError
+                    if percWMin < percW < percWMax:
+                        self.centers.insert(0, center)
+
+                        Track.id += 1
         return self.centers

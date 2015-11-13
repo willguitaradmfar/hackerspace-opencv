@@ -43,11 +43,11 @@ dictPoly['Biblioteca'] = poly2
 stateManager = StateManager()
 
 
-track = Track(1000, (100 * 1000));
+track = Track(20,20,10000, (100 * 1000));
 
 stream = Video('videos/videoSalaUX.webm');
 
-identify = Identify(60)
+identify = Identify(100)
 identify.setTrack(track)
 
 count = 0

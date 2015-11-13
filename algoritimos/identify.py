@@ -33,12 +33,19 @@ class Identify:
                 h = g.distance((_center.x, _center.y), (center.x, center.y))
                 if self.M > h:
                     center.id = _center.id
+                    center.maxH = _center.maxH
+                    center.maxA = _center.maxA
                     cv2.rectangle(self.track.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
                     hasPoly = False
                     for poly in dictPoly:
                         if dictPoly[poly].containsPoint(Point(center.px, center.py)):
                             area = center.w * center.h
-                            texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area),("H: %0.0f" % h), (poly)]
+                            if center.maxH < h:
+                                center.maxH = h
+                            if center.maxA < area:
+                                center.maxA = area
+
+                            texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("MA: %0.0f" % center.maxA), ("H: %0.0f" % h), ("MH: %0.0f" % center.maxH), (poly)]
                             Label(self.track.frame, center, texts)
                             hasPoly = True
                             center.setAreaName(poly)

@@ -26,7 +26,7 @@ poly1.addLine(line4);
 
 dictPoly['Zebra'] = poly1
 
-track = Track(1000, (10 * 1000));
+track = Track(50,20,1000, (10 * 1000));
 
 stream = Video("videos/videoVeiculos.mp4");
 
