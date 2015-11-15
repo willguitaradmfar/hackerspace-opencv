@@ -39,7 +39,7 @@ class Track:
         #uso o recurso de dilatacao e erosao para unir todas as partes localizadas
         self.kernel = np.ones((5,5),np.uint8)
         self.dilation = cv2.dilate(thresh,self.kernel,iterations = 8)
-        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 5)
+        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 8)
 
     def getCenters(self):
         (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -53,8 +53,11 @@ class Track:
                     
                     percWMax = self.percW + self.percError
                     percWMin = self.percW - self.percError
-                    if percWMin < percW < percWMax:
-                        self.centers.insert(0, center)
+                    if percW != 0:
+                        if percWMin > percW or percW > percWMax:
+                            continue
+                        
+                    self.centers.insert(0, center)
 
-                        Track.id += 1
+                    Track.id += 1
         return self.centers
