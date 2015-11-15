@@ -55,7 +55,7 @@ class Track:
                     percWMin = self.percW - self.percError
                     if percW != 0:
                         if percWMin > percW or percW > percWMax:
-                            continue
+                            continue 
                         
                     self.centers.insert(0, center)
 
