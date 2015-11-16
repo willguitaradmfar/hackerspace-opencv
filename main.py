@@ -38,7 +38,7 @@ counterPoly = CounterPoly()
 
 moviment = Moviment(50, 50,500, (100 * 1000));
 
-stream = Cam();
+stream = Video('videos/videoContagem.mp4');
 
 identify = Identify(60)
 identify.setMoviment(moviment)
@@ -76,8 +76,7 @@ while(True):
             poly.setLabel(label)
 
 
-    cv2.imshow('frame', frame)
-    cv2.imshow('dilation', moviment.dilation)
+    cv2.imshow('frame', frame)    
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:

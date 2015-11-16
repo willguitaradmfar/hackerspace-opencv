@@ -41,9 +41,9 @@ class Moviment:
         MedianBlur = cv2.medianBlur(thresh, 11)
 
         #uso o recurso de dilatacao e erosao para unir todas as partes localizadas
-        self.kernel = np.ones((5,5),np.uint8)
-        self.dilation = cv2.dilate(thresh,self.kernel,iterations = 8)
-        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 8)
+        self.kernel = np.ones((2,3),np.uint8)
+        self.dilation = cv2.dilate(thresh,self.kernel,iterations = 6)
+        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 6)
 
     # RETORN UM ARRAY DE CENTROIDES
     # TIPO DO OBJ [Center]{x, y, w, h, id}

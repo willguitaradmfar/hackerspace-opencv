@@ -52,7 +52,7 @@ class Identify:
                             if center.maxA < area:
                                 center.maxA = area
 
-                            texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("MA: %0.0f" % center.maxA), ("H: %0.0f" % h), ("MH: %0.0f" % center.maxH), (poly.name)]
+                            texts = [("ID: %0.0f" % (center.id)), (poly.name)]
                             hasPoly = True
                             label = Label(texts)
                             label.setFrame(self.moviment.frame)
