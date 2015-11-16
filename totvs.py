@@ -4,7 +4,7 @@ import cv2
 from stream.video import Video
 from stream.cam import Cam
 
-from algoritimos.track import Track
+from algoritimos.moviment import Moviment
 from algoritimos.face import Face
 from algoritimos.identify import Identify
 
@@ -39,12 +39,12 @@ poly2.addLine(l4);
 dictPoly['Marginal'] = poly2
 
 
-track = Track(50,20,1000, (50 * 1000));
+moviment = Moviment(50,20,1000, (50 * 1000));
 
 stream = Video("videos/videoTotvs.mp4");
 
 identifyMoviment = Identify(8)
-identifyMoviment.setTrack(track)
+identifyMoviment.setMoviment(moviment)
 
 while(True):
 
@@ -56,8 +56,8 @@ while(True):
     poly2.setFrame(frame)
     poly2.draw()
 
-    track.setFrame(frame)
-    track.preProcess()
+    moviment.setFrame(frame)
+    moviment.preProcess()
 
     identifyMoviment.getPointsMap(dictPoly)
     cv2.imshow('frame', frame)

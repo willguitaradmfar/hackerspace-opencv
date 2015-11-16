@@ -4,7 +4,7 @@ import cv2
 from stream.video import Video
 from stream.cam import Cam
 
-from algoritimos.track import Track
+from algoritimos.moviment import Moviment
 from algoritimos.face import Face
 from algoritimos.identify import Identify
 
@@ -26,12 +26,12 @@ poly1.addLine(line4);
 
 dictPoly['Zebra'] = poly1
 
-track = Track(50,20,1000, (10 * 1000));
+moviment = Moviment(50,20,1000, (10 * 1000));
 
 stream = Video("videos/videoVeiculos.mp4");
 
 identify = Identify(30)
-identify.setTrack(track)
+identify.setMoviment(moviment)
 
 while(True):
 
@@ -40,8 +40,8 @@ while(True):
     poly1.setFrame(frame)
     poly1.draw()
 
-    track.setFrame(frame)
-    track.preProcess()
+    moviment.setFrame(frame)
+    moviment.preProcess()
 
     identify.getPointsMap(dictPoly)
     cv2.imshow('frame', frame)

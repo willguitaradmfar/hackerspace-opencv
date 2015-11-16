@@ -3,9 +3,9 @@ import cv2
 
 from domain.center import Center
 
-class Track:
+class Moviment:
     def __init__(self, percW, percError=20, minArea=1000, maxArea=(1000 * 10)):
-        Track.id = 0
+        Moviment.id = 0
         self.backgroundSubtractorKNN = cv2.createBackgroundSubtractorKNN()
         self.firstFrame = None
         self.minArea = minArea
@@ -48,16 +48,16 @@ class Track:
         for i in range(0, len(a)):
                 x,y,w,h = cv2.boundingRect(a[i])
                 if w*h > self.minArea and w*h < self.maxArea:
-                    center = Center(x, y, w, h, Track.id)
+                    center = Center(x, y, w, h, Moviment.id)
                     percW, percY = center.getMetrica()
-                    
+
                     percWMax = self.percW + self.percError
                     percWMin = self.percW - self.percError
                     if percW != 0:
                         if percWMin > percW or percW > percWMax:
-                            continue 
-                        
+                            continue
+
                     self.centers.insert(0, center)
 
-                    Track.id += 1
+                    Moviment.id += 1
         return self.centers

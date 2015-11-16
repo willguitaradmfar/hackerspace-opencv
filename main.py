@@ -4,7 +4,7 @@ import cv2
 from stream.video import Video
 from stream.cam import Cam
 
-from algoritimos.track import Track
+from algoritimos.moviment import Moviment
 from algoritimos.face import Face
 from algoritimos.identify import Identify
 
@@ -43,12 +43,12 @@ dictPoly['Biblioteca'] = poly2
 stateManager = StateManager()
 
 
-track = Track(1000, (100 * 1000));
+moviment = Moviment(1000, (100 * 1000));
 
 stream = Cam();
 
 identify = Identify(60)
-identify.setTrack(track)
+identify.setMoviment(moviment)
 
 count = 0
 
@@ -68,8 +68,8 @@ while(True):
     poly2.setFrame(frame)
     poly2.draw()
 
-    track.setFrame(frame)
-    track.preProcess()
+    moviment.setFrame(frame)
+    moviment.preProcess()
 
     centers = identify.getPointsMap(dictPoly)
 

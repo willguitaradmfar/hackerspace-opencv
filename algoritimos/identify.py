@@ -18,15 +18,15 @@ class Identify:
         self.colorFont = (255,255,0)
         print("M: %s" % self.M)
 
-    def setTrack(self, track):
-        self.track = track
+    def setMoviment(self, moviment):
+        self.moviment = moviment
 
     def getPointsMap(self, dictPoly):
         if self._centers == None:
-            self._centers = self.track.getCenters()
+            self._centers = self.moviment.getCenters()
             return None
 
-        centers = self.track.getCenters()
+        centers = self.moviment.getCenters()
 
         for center in centers:
             for _center in self._centers:
@@ -35,7 +35,7 @@ class Identify:
                     center.id = _center.id
                     center.maxH = _center.maxH
                     center.maxA = _center.maxA
-                    cv2.rectangle(self.track.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
+                    cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
                     hasPoly = False
                     for poly in dictPoly:
                         if dictPoly[poly].containsPoint(Point(center.px, center.py)):
@@ -46,13 +46,13 @@ class Identify:
                                 center.maxA = area
 
                             texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("MA: %0.0f" % center.maxA), ("H: %0.0f" % h), ("MH: %0.0f" % center.maxH), (poly)]
-                            Label(self.track.frame, center, texts)
+                            Label(self.moviment.frame, center, texts)
                             hasPoly = True
                             center.setAreaName(poly)
                     if not hasPoly:
                         area = center.w * center.h
                         texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("H: %0.0f" % h), ("Sem area")]
-                        Label(self.track.frame, center, texts)
+                        Label(self.moviment.frame, center, texts)
                         center.setAreaName(None)
 
         self._centers = centers
