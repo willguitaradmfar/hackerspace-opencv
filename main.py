@@ -11,39 +11,32 @@ from algoritimos.identify import Identify
 from domain.polygon import Polygon
 from domain.line import Line
 from domain.point import Point
-from domain.stateManager import StateManager
+from domain.counterPoly import CounterPoly
 
-dictPoly = dict()
+from domain.label import Label
 
-poly1 = Polygon();
-line1 = Line(Point(0,0), Point(250,0))
-line2 = Line(Point(250,0), Point(250,450))
-line3 = Line(Point(250,450), Point(0,450))
-line4 = Line(Point(0, 450), Point(0,0))
-poly1.addLine(line1);
-poly1.addLine(line2);
-poly1.addLine(line3);
-poly1.addLine(line4);
+arrayPoly = []
 
-dictPoly['Cadeiras'] = poly1
+poly = Polygon()
+poly.setName("Entrada")
+poly.addLine(Line(Point(0,0), Point(250,0)))
+poly.addLine(Line(Point(250,0), Point(250,450)))
+poly.addLine(Line(Point(250,450), Point(0,450)))
+poly.addLine(Line(Point(0, 450), Point(0,0)))
+arrayPoly.insert(0, poly)
 
-poly2 = Polygon();
-l1 = Line(Point(250,0), Point(500,0))
-l2 = Line(Point(500,0), Point(500,450))
-l3 = Line(Point(500,450), Point(250,450))
-l4 = Line(Point(250,450), Point(250,0))
-poly2.addLine(l1);
-poly2.addLine(l2);
-poly2.addLine(l3);
-poly2.addLine(l4);
+poly = Polygon()
+poly.setName("UX")
+poly.addLine(Line(Point(250,0), Point(500,0)));
+poly.addLine(Line(Point(500,0), Point(500,450)));
+poly.addLine(Line(Point(500,450), Point(250,450)));
+poly.addLine(Line(Point(250,450), Point(250,0)));
+arrayPoly.insert(0, poly)
 
-dictPoly['Biblioteca'] = poly2
+counterPoly = CounterPoly()
 
 
-stateManager = StateManager()
-
-
-moviment = Moviment(1000, (100 * 1000));
+moviment = Moviment(50, 50,500, (100 * 1000));
 
 stream = Cam();
 
@@ -62,22 +55,29 @@ while(True):
         count += 1
         continue
 
-    poly1.setFrame(frame)
-    poly1.draw()
-
-    poly2.setFrame(frame)
-    poly2.draw()
+    for poly in arrayPoly:
+        poly.setFrame(frame)
+        poly.draw()
 
     moviment.setFrame(frame)
     moviment.preProcess()
+    centers = identify.getPointsMap(arrayPoly)
 
-    centers = identify.getPointsMap(dictPoly)
+    counterPoly.setCenters(centers)
 
-    stateManager.setCenters(centers)
+    for poly in arrayPoly:
+        try:
+            label = Label(["%s: %s" % (poly.name, counterPoly.areas[poly.name])])
+            label.setFrame(frame)
+            poly.setLabel(label)
+        except:
+            label = Label(["%s: %s" % (poly.name, 0)])
+            label.setFrame(frame)
+            poly.setLabel(label)
 
-    print(stateManager.areas)
 
     cv2.imshow('frame', frame)
+    cv2.imshow('dilation', moviment.dilation)
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:

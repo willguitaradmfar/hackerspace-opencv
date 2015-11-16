@@ -8,12 +8,12 @@ class Center(Box):
         self.poly = None
         self.px = self.x + (self.w/2)
         self.py = self.y + (self.h/2)
-        self.areaName = None
+        self.poly = None
         self.maxH = 0
-        self.maxA = 0
+        self.maxA = 0   
 
-    def setAreaName(self, areaName):
-        self.areaName = areaName
+    def setPoly(self, poly):
+        self.poly = poly
 
     def getMetrica(self):
         preoduto = self.w + self.h

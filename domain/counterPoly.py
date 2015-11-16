@@ -5,7 +5,7 @@ from utils.geometria import Geometria
 
 geometria = Geometria()
 
-class StateManager:
+class CounterPoly:
     def __init__(self):
         self._centers = None
         self.areas = dict();
@@ -17,10 +17,11 @@ class StateManager:
 
         for center in centers:
             for _center in self._centers:
-                if _center.id == center.id and _center.areaName != center.areaName:
-                    try:
-                        self.areas[center.areaName] += 1
-                    except:
-                        self.areas[center.areaName] = 1
-                        
+                if center.poly != None and _center.poly != None:
+                    if _center.id == center.id and _center.poly.name != center.poly.name:
+                        try:
+                            self.areas[center.poly.name] += 1
+                        except:
+                            self.areas[center.poly.name] = 1
+
         self._centers = centers

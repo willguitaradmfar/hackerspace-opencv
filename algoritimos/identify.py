@@ -10,57 +10,61 @@ from domain.label import Label
 
 g = Geometria();
 
-# OBJETO RESPONSÁVEL POR IDENTIFICAR OBJETOS UNICOS NO PLANO
+# OBJETO RESPONSAVEL POR IDENTIFICAR OBJETOS UNICOS NO PLANO
 # RECEBE UMA INSTANCIA DO OBJETO Moviment
 
 class Identify:
-    def __init__(self, M=20):
+    def __init__(self, deslocamentoMax=20):
         self._centers = None
-        self.M = M
+        self.deslocamentoMax = deslocamentoMax
         self.color = (0,255,0)
         self.colorFont = (255,255,0)
-        print("M: %s" % self.M)
+        print("deslocamentoMax: %s" % self.deslocamentoMax)
 
     def setMoviment(self, moviment):
         self.moviment = moviment
 
 
-    # RETORNA UM ARRAY DE CENTROIDES IDENTIFICADOS COM ID E COM A ÁREA QUE PERTENCE
-    # A ÁREA É PASSADO EM FORMA DE DICIONÁRIO DE OBJETOS [Polygon]
-    def getPointsMap(self, dictPoly):
+    # RETORNA UM ARRAY DE CENTROIDES IDENTIFICADOS COM ID E COM A AREA QUE PERTENCE
+    # A AREA E PASSADO EM FORMA DE DICIONARIO DE OBJETOS [Polygon]
+    def getPointsMap(self, arrayPoly):
         if self._centers == None:
             self._centers = self.moviment.getCenters()
             return None
 
-        # RECUPERA TODOS OS CENTRÓIDES
+        # RECUPERA TODOS OS CENTROIDES
         centers = self.moviment.getCenters()
 
         for center in centers:
             for _center in self._centers:
                 h = g.distance((_center.x, _center.y), (center.x, center.y))
-                if self.M > h:
+                if self.deslocamentoMax > h:
                     center.id = _center.id
                     center.maxH = _center.maxH
                     center.maxA = _center.maxA
                     cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
                     hasPoly = False
-                    for poly in dictPoly:
-                        if dictPoly[poly].containsPoint(Point(center.px, center.py)):
+                    for poly in arrayPoly:
+                        if poly.containsPoint(Point(center.px, center.py)):
                             area = center.w * center.h
                             if center.maxH < h:
                                 center.maxH = h
                             if center.maxA < area:
                                 center.maxA = area
 
-                            texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("MA: %0.0f" % center.maxA), ("H: %0.0f" % h), ("MH: %0.0f" % center.maxH), (poly)]
-                            Label(self.moviment.frame, center, texts)
+                            texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("MA: %0.0f" % center.maxA), ("H: %0.0f" % h), ("MH: %0.0f" % center.maxH), (poly.name)]
                             hasPoly = True
-                            center.setAreaName(poly)
+                            label = Label(texts)
+                            label.setFrame(self.moviment.frame)
+                            center.setLabel(label)
+                            center.setPoly(poly)
                     if not hasPoly:
                         area = center.w * center.h
                         texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("H: %0.0f" % h), ("Sem area")]
-                        Label(self.moviment.frame, center, texts)
-                        center.setAreaName(None)
+                        label = Label(texts)
+                        label.setFrame(self.moviment.frame)
+                        center.setLabel(label)
+                        center.setPoly(None)
 
         self._centers = centers
 
