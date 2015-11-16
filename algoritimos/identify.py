@@ -10,6 +10,9 @@ from domain.label import Label
 
 g = Geometria();
 
+# OBJETO RESPONSÁVEL POR IDENTIFICAR OBJETOS UNICOS NO PLANO
+# RECEBE UMA INSTANCIA DO OBJETO Moviment
+
 class Identify:
     def __init__(self, M=20):
         self._centers = None
@@ -21,11 +24,15 @@ class Identify:
     def setMoviment(self, moviment):
         self.moviment = moviment
 
+
+    # RETORNA UM ARRAY DE CENTROIDES IDENTIFICADOS COM ID E COM A ÁREA QUE PERTENCE
+    # A ÁREA É PASSADO EM FORMA DE DICIONÁRIO DE OBJETOS [Polygon]
     def getPointsMap(self, dictPoly):
         if self._centers == None:
             self._centers = self.moviment.getCenters()
             return None
 
+        # RECUPERA TODOS OS CENTRÓIDES
         centers = self.moviment.getCenters()
 
         for center in centers:

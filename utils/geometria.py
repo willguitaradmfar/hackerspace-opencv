@@ -35,6 +35,7 @@ class Geometria:
             _poly.insert(0, (p.pointI.x, p.pointI.y))
         return self.isPointInPoly(_poly, _point)
 
+    # TEOREMA DE PITAGORAS
     def distance(self, point1, point2):
 
         modX = math.fabs(point1[0] - point2[0])

@@ -3,6 +3,10 @@ import cv2
 
 from domain.center import Center
 
+# BUSCA OBJETOS QUE SE MOVIMENTA NO PLANO
+# OS PARAMETROS DO CONSTRUTOR É UM CRITERIO DE  BUSCA
+# Moviment(WIDTH%, MARGEM%, ÁREA_MINIMA, ÁREA_MÁXIMA)
+
 class Moviment:
     def __init__(self, percW, percError=20, minArea=1000, maxArea=(1000 * 10)):
         Moviment.id = 0
@@ -41,6 +45,9 @@ class Moviment:
         self.dilation = cv2.dilate(thresh,self.kernel,iterations = 8)
         self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 8)
 
+    # RETORN UM ARRAY DE CENTRÓIDES
+    # TIPO DO OBJ [Center]{x, y, w, h, id}
+    # CADA VEZ QUE ENCONTRA UM OBJETO DA UM ID DIFERENTE    
     def getCenters(self):
         (contours, a, _) = cv2.findContours(self.erosion, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         self.centers = []
