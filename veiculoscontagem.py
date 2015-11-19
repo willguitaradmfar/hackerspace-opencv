@@ -50,6 +50,49 @@ count = 0
 
 counter = dict()
 
+def threshCallback(value):
+    Moviment.threshold = value
+    return
+
+def gaussCallback(value):
+    try:
+        if value % 2 == 0:
+            value -= 1
+        if value <= 0:
+            value = 1
+                    
+        Moviment.medianBlur = value
+    except:
+        return
+
+def verticalCallback(value):
+    Moviment.kernelVertical = value
+    return
+
+def horizontalCallback(value):
+    Moviment.kernelHorizontal = value
+    return
+
+def dilationCallback(value):
+    Moviment.dilationInterator = value
+    return
+
+def erodeCallback(value):
+    Moviment.erodeInterator = value
+    return
+
+
+cv2.namedWindow('frame')
+cv2.namedWindow('dilation')
+cv2.namedWindow('erosao')
+cv2.namedWindow('gauss')
+cv2.createTrackbar("Threshold", "frame", Moviment.threshold, 255, threshCallback)
+cv2.createTrackbar("Gauss", "gauss", Moviment.medianBlur, 25, gaussCallback)
+cv2.createTrackbar("Vertical", "dilation", Moviment.kernelVertical, 15, verticalCallback)
+cv2.createTrackbar("Horizontal", "dilation", Moviment.kernelHorizontal, 15, horizontalCallback)
+cv2.createTrackbar("Dilation", "dilation", Moviment.dilationInterator, 15, dilationCallback)
+cv2.createTrackbar("Erode", "erosao", Moviment.erodeInterator, 15, erodeCallback)
+
 while(True):
 
     frame = stream.getFrame()
@@ -81,8 +124,9 @@ while(True):
 
 
     cv2.imshow('frame', frame)
+    cv2.imshow('gauss', moviment.MedianBlur)
     cv2.imshow('dilation', moviment.dilation)
-
+    cv2.imshow('borda', moviment.erosion)
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:
@@ -91,3 +135,4 @@ while(True):
 
 stream.finish()
 cv2.destroyAllWindows()
+

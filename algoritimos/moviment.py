@@ -16,11 +16,17 @@ class Moviment:
         self.maxArea = maxArea
         self.percW = percW
         self.percError = percError
+        Moviment.medianBlur = 11
+        Moviment.threshold = 25
+        Moviment.kernelVertical = 2
+        Moviment.kernelHorizontal = 3
+        Moviment.dilationInterator = 8
+        Moviment.erodeInterator = 8
         print("minArea: %s, maxArea: %s" % (self.minArea, self.maxArea))
 
     def setFrame(self, frame):
         self.frame = frame
-
+    
     def preProcess(self):
 
         if self.firstFrame ==  None:
@@ -29,21 +35,21 @@ class Moviment:
         gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 
         #Gauss = cv2.GaussianBlur(gray, (5, 5), 0)
-        MedianBlur = cv2.medianBlur(gray, 11)
+        self.MedianBlur = cv2.medianBlur(gray, Moviment.medianBlur)
 
         #aplica o BG Subtraction
-        fgmask = self.backgroundSubtractorKNN.apply(MedianBlur)
+        fgmask = self.backgroundSubtractorKNN.apply(self.MedianBlur)
 
         #binarizacao da imagem
-        thresh = cv2.threshold(fgmask, 25, 255, cv2.THRESH_BINARY)[1]
+        thresh = cv2.threshold(fgmask, Moviment.threshold, 255, cv2.THRESH_BINARY)[1]
 
         #o blur remove pequenos ruidos do background subtraction
-        MedianBlur = cv2.medianBlur(thresh, 11)
+        #MedianBlur = cv2.medianBlur(thresh, Moviment.medianBlur)
 
         #uso o recurso de dilatacao e erosao para unir todas as partes localizadas
-        self.kernel = np.ones((2,2),np.uint8)
-        self.dilation = cv2.dilate(thresh,self.kernel,iterations = 6)
-        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = 15)
+        self.kernel = np.ones((Moviment.kernelVertical,Moviment.kernelHorizontal),np.uint8)
+        self.dilation = cv2.dilate(thresh,self.kernel,iterations = Moviment.dilationInterator)
+        self.erosion = cv2.erode(self.dilation,self.kernel,iterations = Moviment.erodeInterator)
 
     # RETORN UM ARRAY DE CENTROIDES
     # TIPO DO OBJ [Center]{x, y, w, h, id}
