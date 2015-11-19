@@ -64,8 +64,9 @@ while(True):
 
     moviment.setFrame(frame)
     moviment.preProcess()
-    centers = identify.getPointsMap(arrayPoly)
+    cv2.imshow('erosao', moviment.erosion)
 
+    centers = identify.getPointsMap(arrayPoly)
     counterPoly.setCenters(centers)
 
     for poly in arrayPoly:
@@ -80,7 +81,8 @@ while(True):
 
 
     cv2.imshow('frame', frame)
-    # cv2.imshow('dilation', moviment.dilation)
+    cv2.imshow('dilation', moviment.dilation)
+
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:
