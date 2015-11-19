@@ -48,9 +48,9 @@ class test:
 
         aaa = np.zeros((300,512,3), np.uint8)
         cv2.namedWindow('slider')
-        cv2.createMovimentbar("Gauss", "slider", 1, 25, self.callback_gauss)
-        cv2.createMovimentbar("thresh1", "slider", 1, 255, self.callback_thresh1)
-        cv2.createMovimentbar("thresh2", "slider", 1, 255, self.callback_thresh2)
+        cv2.createTrackbar("Gauss", "slider", 1, 25, self.callback_gauss)
+        cv2.createTrackbar("thresh1", "slider", 1, 255, self.callback_thresh1)
+        cv2.createTrackbar("thresh2", "slider", 1, 255, self.callback_thresh2)
 
         while(True):
                 #Como o obturador das cameras demora um pouco para se adaptar espero a aquisicao de alguns frames
