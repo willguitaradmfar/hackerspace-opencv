@@ -8,7 +8,12 @@ from domain.point import Point
 
 from domain.label import Label
 
+from domain.polygon import Polygon
+
 g = Geometria();
+
+polyDefault = Polygon()
+polyDefault.setName("Default")
 
 # OBJETO RESPONSAVEL POR IDENTIFICAR OBJETOS UNICOS NO PLANO
 # RECEBE UMA INSTANCIA DO OBJETO Moviment
@@ -64,7 +69,7 @@ class Identify:
                         label = Label(texts)
                         label.setFrame(self.moviment.frame)
                         center.setLabel(label)
-                        center.setPoly(None)
+                        center.setPoly(polyDefault)
 
         self._centers = centers
 

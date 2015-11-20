@@ -1,0 +1,7 @@
+[Geral]
+Moviment.threshold = 25
+Moviment.medianBlur = 11
+Moviment.kernelVertical = 3
+Moviment.kernelHorizontal = 2
+Moviment.dilationInterator = 8
+Moviment.erodeInterator = 8

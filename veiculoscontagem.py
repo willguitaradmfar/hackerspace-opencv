@@ -15,6 +15,13 @@ from domain.counterPoly import CounterPoly
 
 from domain.label import Label
 
+import ConfigParser
+
+fileConfName = 'camio.conf'
+
+config = ConfigParser.RawConfigParser()
+config.read(fileConfName)
+
 arrayPoly = []
 
 poly = Polygon()
@@ -39,11 +46,11 @@ arrayPoly.insert(0, poly)
 counterPoly = CounterPoly()
 
 
-moviment = Moviment(50, 50,100, (50 * 1000));
+moviment = Moviment(50, 50,100, (2 * 1000));
 
-stream = Video('videos/videoContagem.mp4');
+stream = Video('videos/japao.mp4');
 
-identify = Identify(23)
+identify = Identify(20)
 identify.setMoviment(moviment)
 
 count = 0
@@ -52,6 +59,7 @@ counter = dict()
 
 def threshCallback(value):
     Moviment.threshold = value
+    config.set('Geral', 'Moviment.threshold', value);
     return
 
 def gaussCallback(value):
@@ -60,27 +68,39 @@ def gaussCallback(value):
             value -= 1
         if value <= 0:
             value = 1
-                    
+
         Moviment.medianBlur = value
+        config.set('Geral', 'Moviment.medianBlur', value);
     except:
         return
 
 def verticalCallback(value):
     Moviment.kernelVertical = value
+    config.set('Geral', 'Moviment.kernelVertical', value);
     return
 
 def horizontalCallback(value):
     Moviment.kernelHorizontal = value
+    config.set('Geral', 'Moviment.kernelHorizontal', value);
     return
 
 def dilationCallback(value):
     Moviment.dilationInterator = value
+    config.set('Geral', 'Moviment.dilationInterator', value);
     return
 
 def erodeCallback(value):
     Moviment.erodeInterator = value
+    config.set('Geral', 'Moviment.erodeInterator', value);
     return
 
+
+Moviment.threshold = int(config.get('Geral', 'Moviment.threshold'))
+Moviment.medianBlur = int(config.get('Geral', 'Moviment.medianBlur'))
+Moviment.kernelVertical = int(config.get('Geral', 'Moviment.kernelVertical'))
+Moviment.kernelHorizontal = int(config.get('Geral', 'Moviment.kernelHorizontal'))
+Moviment.dilationInterator = int(config.get('Geral', 'Moviment.dilationInterator'))
+Moviment.erodeInterator = int(config.get('Geral', 'Moviment.erodeInterator'))
 
 cv2.namedWindow('frame')
 cv2.namedWindow('dilation')
@@ -93,6 +113,8 @@ cv2.createTrackbar("Horizontal", "dilation", Moviment.kernelHorizontal, 15, hori
 cv2.createTrackbar("Dilation", "dilation", Moviment.dilationInterator, 15, dilationCallback)
 cv2.createTrackbar("Erode", "erosao", Moviment.erodeInterator, 15, erodeCallback)
 
+cframe = 0;
+
 while(True):
 
     frame = stream.getFrame()
@@ -101,9 +123,12 @@ while(True):
         count += 1
         continue
 
-    for poly in arrayPoly:
-        poly.setFrame(frame)
-        poly.draw()
+    cframe += 1;
+
+    if cframe % 3:
+        continue
+
+
 
     moviment.setFrame(frame)
     moviment.preProcess()
@@ -122,6 +147,9 @@ while(True):
             label.setFrame(frame)
             poly.setLabel(label)
 
+    for poly in arrayPoly:
+        poly.setFrame(frame)
+        poly.draw()
 
     cv2.imshow('frame', frame)
     cv2.imshow('gauss', moviment.MedianBlur)
@@ -132,7 +160,7 @@ while(True):
     if k == 27:
         break
 
-
+cfgfile = open(fileConfName,'w')
+config.write(cfgfile)
 stream.finish()
 cv2.destroyAllWindows()
-

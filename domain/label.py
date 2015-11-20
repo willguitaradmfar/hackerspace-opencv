@@ -18,3 +18,4 @@ class Label:
             text = self.texts[i]
             cv2.putText(self.frame, text, (point.x+3, point.y+11+(i*15)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, self.colorFontBack, 1)
             cv2.putText(self.frame, text, (point.x+2, point.y+10+(i*15)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, self.colorFont, 1)
+            cv2.putText(self.frame, text, (point.x+3, point.y+10+(i*15)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, self.colorFontBack, 1)
