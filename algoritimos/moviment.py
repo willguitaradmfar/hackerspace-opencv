@@ -22,7 +22,9 @@ class Moviment:
         Moviment.kernelHorizontal = 3
         Moviment.dilationInterator = 8
         Moviment.erodeInterator = 8
-        print("minArea: %s, maxArea: %s" % (self.minArea, self.maxArea))
+        Moviment.minArea = minArea
+        Moviment.maxArea = maxArea
+        print("minArea: %s, maxArea: %s" % (Moviment.minArea, Moviment.maxArea))
 
     def setFrame(self, frame):
         self.frame = frame
@@ -60,7 +62,7 @@ class Moviment:
 
         for i in range(0, len(a)):
                 x,y,w,h = cv2.boundingRect(a[i])
-                if w*h > self.minArea and w*h < self.maxArea:
+                if w*h > Moviment.minArea and w*h < Moviment.maxArea:
                     center = Center(x, y, w, h, Moviment.id)
                     percW, percY = center.getMetrica()
 
