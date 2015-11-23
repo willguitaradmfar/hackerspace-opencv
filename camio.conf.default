@@ -1,0 +1,11 @@
+[Geral]
+Moviment.threshold = 25
+Moviment.medianBlur = 11
+Moviment.kernelVertical = 3
+Moviment.kernelHorizontal = 2
+Moviment.dilationInterator = 8
+Moviment.erodeInterator = 8
+Identify.deslocamentoMax = 20
+moviment.minarea = 300
+moviment.maxarea = 2000
+main.modframes = 2

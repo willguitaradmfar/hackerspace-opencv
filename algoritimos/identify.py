@@ -8,7 +8,12 @@ from domain.point import Point
 
 from domain.label import Label
 
+from domain.polygon import Polygon
+
 g = Geometria();
+
+polyDefault = Polygon()
+polyDefault.setName("Default")
 
 # OBJETO RESPONSAVEL POR IDENTIFICAR OBJETOS UNICOS NO PLANO
 # RECEBE UMA INSTANCIA DO OBJETO Moviment
@@ -16,10 +21,10 @@ g = Geometria();
 class Identify:
     def __init__(self, deslocamentoMax=20):
         self._centers = None
-        self.deslocamentoMax = deslocamentoMax
+        Identify.deslocamentoMax = deslocamentoMax
         self.color = (0,255,0)
         self.colorFont = (255,255,0)
-        print("deslocamentoMax: %s" % self.deslocamentoMax)
+        print("deslocamentoMax: %s" % Identify.deslocamentoMax)
 
     def setMoviment(self, moviment):
         self.moviment = moviment
@@ -38,7 +43,7 @@ class Identify:
         for center in centers:
             for _center in self._centers:
                 h = g.distance((_center.x, _center.y), (center.x, center.y))
-                if self.deslocamentoMax > h:
+                if Identify.deslocamentoMax > h:
                     center.id = _center.id
                     center.maxH = _center.maxH
                     center.maxA = _center.maxA
@@ -64,7 +69,7 @@ class Identify:
                         label = Label(texts)
                         label.setFrame(self.moviment.frame)
                         center.setLabel(label)
-                        center.setPoly(None)
+                        center.setPoly(polyDefault)
 
         self._centers = centers
 
