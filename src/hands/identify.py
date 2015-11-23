@@ -1,13 +1,13 @@
 import numpy as np
 import cv2
 
-from src.geometria import Geometria
+from src.util.geometria import Geometria
 
-from src.point import Point
+from src.domain.point import Point
 
-from src.label import Label
+from src.domain.label import Label
 
-from src.polygon import Polygon
+from src.domain.polygon import Polygon
 
 g = Geometria();
 

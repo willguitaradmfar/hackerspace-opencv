@@ -1,13 +1,12 @@
 import numpy as np
 import cv2
 
-from src.video import Video
-from src.cam import Cam
+from src.stream.cam import Cam
 
-from src.polygon import Polygon
-from src.line import Line
-from src.point import Point
-from src.configCam import ConfigCam
+from src.domain.polygon import Polygon
+from src.domain.line import Line
+from src.domain.point import Point
+from src.config.configCam import ConfigCam
 
 arrayPoly = []
 

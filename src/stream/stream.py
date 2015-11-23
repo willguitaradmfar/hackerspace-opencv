@@ -1,27 +1,34 @@
 import numpy as np
 import cv2
 
-from src.moviment import Moviment
+from src.hands.moviment import Moviment
 
-from src.identify import Identify
+from src.hands.identify import Identify
 
-from src.counterPoly import CounterPoly
+from src.hands.counterPoly import CounterPoly
 
-from src.label import Label
+from src.domain.label import Label
 
 class Stream:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
         self.polys = None
+        self.channelBuffer = None
 
     def getFrame(self):
         ret, frame = self.cap.read()
         return frame
 
+    def setChannelBuffer(self, channelBuffer):
+        self.channelBuffer = channelBuffer
+
     def setConfig(self, config):
         self.config = config
 
     def finish(self):
+        if self.channelBuffer != None:
+            self.channelBuffer.thr.join()
+
         self.config.save()
         self.cap.release()
         cv2.destroyAllWindows()
@@ -87,7 +94,7 @@ class Stream:
 
 
             centers = identify.getPointsMap(self.polys)
-            
+
             if self.polys != None:
                 counterPoly.setCenters(centers)
 
@@ -104,6 +111,9 @@ class Stream:
                 for poly in self.polys:
                     poly.setFrame(frame)
                     poly.draw()
+
+            if self.channelBuffer != None:
+                self.channelBuffer.setFrame(frame)
 
             cv2.imshow('frame', frame)
             cv2.imshow('gauss', moviment.MedianBlur)

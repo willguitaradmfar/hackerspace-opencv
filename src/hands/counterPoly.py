@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from src.geometria import Geometria
+from src.util.geometria import Geometria
 
 geometria = Geometria()
 

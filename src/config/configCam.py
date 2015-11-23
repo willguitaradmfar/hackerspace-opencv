@@ -1,10 +1,10 @@
 import numpy as np
 
-from src.config import Config
+from src.config.config import Config
 
-from src.moviment import Moviment
+from src.hands.moviment import Moviment
 
-from src.identify import Identify
+from src.hands.identify import Identify
 
 class ConfigCam(Config):
     def __init__(self, fileConfName="camio.conf"):

@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from src.center import Center
+from src.domain.center import Center
 
 # BUSCA OBJETOS QUE SE MOVIMENTA NO PLANO
 # OS PARAMETROS DO CONSTRUTOR E UM CRITERIO DE  BUSCA

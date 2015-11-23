@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 
-from src.geometria import Geometria
+from src.util.geometria import Geometria
 
-from src.point import Point
+from src.domain.point import Point
 
 geometria = Geometria()
 

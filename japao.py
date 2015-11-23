@@ -1,13 +1,19 @@
 import numpy as np
 import cv2
 
-from src.video import Video
+from src.stream.video import Video
 
-from src.polygon import Polygon
-from src.line import Line
-from src.point import Point
-from src.configCam import ConfigCam
+from src.domain.polygon import Polygon
+from src.domain.line import Line
+from src.domain.point import Point
+from src.config.configCam import ConfigCam
+
+from src.channelBuffer.channelBufferFile import ChannelBufferFile
+
+
+channelBuffer = ChannelBufferFile()
 
 stream = Video('videos/japao.mp4');
 stream.setConfig(ConfigCam())
+stream.setChannelBuffer(channelBuffer)
 stream.play()

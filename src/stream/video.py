@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from src.stream import Stream
+from src.stream.stream import Stream
 
 class Video(Stream):
     def __init__(self, path="videos/video.mp4"):

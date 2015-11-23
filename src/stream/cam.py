@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from stream import Stream
+from src.stream.stream import Stream
 
 class Cam(Stream):
     def __init__(self):

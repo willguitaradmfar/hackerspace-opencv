@@ -1,6 +1,6 @@
 import numpy as np
 
-from box import Box
+from src.domain.box import Box
 
 class Center(Box):
     def __init__(self, x, y, w, h, id):
@@ -10,7 +10,7 @@ class Center(Box):
         self.py = self.y + (self.h/2)
         self.poly = None
         self.maxH = 0
-        self.maxA = 0   
+        self.maxA = 0
 
     def setPoly(self, poly):
         self.poly = poly
