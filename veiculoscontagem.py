@@ -60,7 +60,7 @@ def gaussCallback(value):
             value -= 1
         if value <= 0:
             value = 1
-                    
+
         Moviment.medianBlur = value
     except:
         return
@@ -135,4 +135,3 @@ while(True):
 
 stream.finish()
 cv2.destroyAllWindows()
-
