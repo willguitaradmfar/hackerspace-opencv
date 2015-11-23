@@ -1,6 +1,6 @@
 import numpy as np
 
-from domain.point import Point
+from src.point import Point
 
 class Box:
     def __init__(self, x, y, w, h, id):

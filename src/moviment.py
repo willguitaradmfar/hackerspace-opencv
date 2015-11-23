@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from domain.center import Center
+from src.center import Center
 
 # BUSCA OBJETOS QUE SE MOVIMENTA NO PLANO
 # OS PARAMETROS DO CONSTRUTOR E UM CRITERIO DE  BUSCA
@@ -24,11 +24,10 @@ class Moviment:
         Moviment.erodeInterator = 8
         Moviment.minArea = minArea
         Moviment.maxArea = maxArea
-        print("minArea: %s, maxArea: %s" % (Moviment.minArea, Moviment.maxArea))
 
     def setFrame(self, frame):
         self.frame = frame
-    
+
     def preProcess(self):
 
         if self.firstFrame ==  None:

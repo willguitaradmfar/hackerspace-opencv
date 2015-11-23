@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 
 from src.video import Video
+from src.cam import Cam
 
 from src.polygon import Polygon
 from src.line import Line
@@ -18,7 +19,7 @@ poly.addLine(Line(Point(0,0), Point(0,0)))
 poly.addLine(Line(Point(0,0), Point(0,0)))
 arrayPoly.insert(0, poly)
 
-stream = Video("videos/videoVeiculos.mp4");
+stream = Cam();
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
 stream.play()

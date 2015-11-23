@@ -18,7 +18,7 @@ poly.addLine(Line(Point(0,0), Point(0,0)))
 poly.addLine(Line(Point(0,0), Point(0,0)))
 arrayPoly.insert(0, poly)
 
-stream = Video("videos/videoVeiculos.mp4");
+stream = Video('videos/japao.mp4');
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
 stream.play()

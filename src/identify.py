@@ -1,14 +1,13 @@
 import numpy as np
 import cv2
 
-from utils.geometria import Geometria
-from utils.crop import Crop
+from src.geometria import Geometria
 
-from domain.point import Point
+from src.point import Point
 
-from domain.label import Label
+from src.label import Label
 
-from domain.polygon import Polygon
+from src.polygon import Polygon
 
 g = Geometria();
 
@@ -24,7 +23,6 @@ class Identify:
         Identify.deslocamentoMax = deslocamentoMax
         self.color = (0,255,0)
         self.colorFont = (255,255,0)
-        print("deslocamentoMax: %s" % Identify.deslocamentoMax)
 
     def setMoviment(self, moviment):
         self.moviment = moviment
@@ -48,6 +46,8 @@ class Identify:
                     center.maxH = _center.maxH
                     center.maxA = _center.maxA
                     cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
+                    cv2.rectangle(self.moviment.frame,(center.x+1,center.y+1),(center.x+center.w+1,center.y+center.h+1),(255,255,255),1)
+
                     hasPoly = False
                     for poly in arrayPoly:
                         if poly.containsPoint(Point(center.px, center.py)):
