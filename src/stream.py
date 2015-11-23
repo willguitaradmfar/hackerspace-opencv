@@ -12,6 +12,7 @@ from src.label import Label
 class Stream:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
+        self.polys = None
 
     def getFrame(self):
         ret, frame = self.cap.read()
@@ -84,22 +85,25 @@ class Stream:
             moviment.preProcess()
             cv2.imshow('erosao', moviment.erosion)
 
+
             centers = identify.getPointsMap(self.polys)
-            counterPoly.setCenters(centers)
+            
+            if self.polys != None:
+                counterPoly.setCenters(centers)
 
-            for poly in self.polys:
-                try:
-                    label = Label(["%s: %s" % (poly.name, counterPoly.areas[poly.name])])
-                    label.setFrame(frame)
-                    poly.setLabel(label)
-                except:
-                    label = Label(["%s: %s" % (poly.name, 0)])
-                    label.setFrame(frame)
-                    poly.setLabel(label)
+                for poly in self.polys:
+                    try:
+                        label = Label(["%s: %s" % (poly.name, counterPoly.areas[poly.name])])
+                        label.setFrame(frame)
+                        poly.setLabel(label)
+                    except:
+                        label = Label(["%s: %s" % (poly.name, 0)])
+                        label.setFrame(frame)
+                        poly.setLabel(label)
 
-            for poly in self.polys:
-                poly.setFrame(frame)
-                poly.draw()
+                for poly in self.polys:
+                    poly.setFrame(frame)
+                    poly.draw()
 
             cv2.imshow('frame', frame)
             cv2.imshow('gauss', moviment.MedianBlur)

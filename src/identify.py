@@ -35,6 +35,10 @@ class Identify:
             self._centers = self.moviment.getCenters()
             return None
 
+        if arrayPoly == None:
+            arrayPoly = [];
+            arrayPoly.insert(0, polyDefault)
+
         # RECUPERA TODOS OS CENTROIDES
         centers = self.moviment.getCenters()
 
