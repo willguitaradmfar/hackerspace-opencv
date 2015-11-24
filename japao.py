@@ -8,10 +8,10 @@ from src.domain.line import Line
 from src.domain.point import Point
 from src.config.configCam import ConfigCam
 
-from src.channelBuffer.channelBufferFile import ChannelBufferFile
+from src.channelBuffer.channelBuffer import ChannelBuffer
 
 
-channelBuffer = ChannelBufferFile()
+channelBuffer = ChannelBuffer()
 
 stream = Video('videos/japao.mp4');
 stream.setConfig(ConfigCam())
