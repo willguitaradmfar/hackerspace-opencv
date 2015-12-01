@@ -16,6 +16,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var frame = require('./routes/frame')(io);
 var heat = require('./routes/heat')(io);
+var counterPoly = require('./routes/counterPoly')(io);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

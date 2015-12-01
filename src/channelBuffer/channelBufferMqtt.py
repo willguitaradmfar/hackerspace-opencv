@@ -1,6 +1,7 @@
 import cv2
 import threading
 import base64
+import json
 
 import paho.mqtt.client as paho
 
@@ -18,4 +19,4 @@ class ChannelBufferMqtt(ChannelBuffer):
         b64 = base64.encodestring(cv2.imencode('.png',self.frame)[1])
         client.publish("frame", b64)
 
-        client.publish("counterPoly", counterPoly.areas)
+        client.publish("counterPoly", json.dumps(self.counterPoly.areas))

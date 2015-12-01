@@ -11,12 +11,12 @@ module.exports = function (io) {
         var client = mqtt.connect(['mqtt://', process.env.MQTT].join(''));
 
         client.on('connect', function () {
-            client.subscribe('heat');
+            client.subscribe('counterPoly');
         });
 
         client.on('message', function (topic, message) {
             console.log(message.toString());
-            socket.emit('heat', JSON.parse(message.toString()));
+            socket.emit('counterPoly', JSON.parse(message.toString()));
         });
 
     });

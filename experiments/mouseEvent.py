@@ -14,11 +14,11 @@ class mouseTest():
         self.firstPoint = []
     # mouse callback function
     def lineCallback(self,event,x,y,flags,param):
-        
+
         if event == cv2.EVENT_LBUTTONUP:
             #cv2.circle(img,(x,y),100,(255,0,0),-1)
 
-            print(len(self.points))
+            # print(len(self.points))
             if len(self.points) < 2:
                 if self.count >= 2:
                     self.points.append([self.memoryx,self.memoryy])
@@ -47,21 +47,25 @@ class mouseTest():
                 self.memoryy = []
                 self.count = 0
                 self.firstPoint = []
-           
+
     def run(self):
         # Create a black image, a window and bind the function to window
         img = np.zeros((512,512,3), np.uint8)
         cv2.namedWindow('image')
         cv2.setMouseCallback('image', self.lineCallback)
 
+        cap = cv2.VideoCapture("videos/videoContagem.mp4")
+
         while(1):
 
+            ret, frame = cap.read()
+
             for line in self.lines:
-                cv2.line(img,(line[0][0], line[0][1]),(line[1][0], line[1][1]),(255,0,0),3)
+                cv2.line(frame,(line[0][0], line[0][1]),(line[1][0], line[1][1]),(255,0,0),3)
 
             self.verifyLastPoint()
-            
-            cv2.imshow('image',img)
+
+            cv2.imshow('image',frame)
             k = cv2.waitKey(20) & 0xFF
             if k == 27:
                 break

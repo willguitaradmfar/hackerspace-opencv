@@ -11,8 +11,12 @@ $(function () {
         heatmap.addData(data);
     });
 
-    socket.on('frame', function (data) {        
+    socket.on('frame', function (data) {
         $('#frame').attr('src', ['data:image/png;base64,', data].join(''))
+    });
+
+    socket.on('counterPoly', function (data) {
+        //console.log(data);
     });
 
 });
