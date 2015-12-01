@@ -113,7 +113,9 @@ class Stream:
                     poly.draw()
 
             if self.channelBuffer != None:
-                self.channelBuffer.setFrame(frame)
+                self.channelBuffer.setFrame(frame, counterPoly)
+
+
 
             cv2.imshow('frame', frame)
             cv2.imshow('gauss', moviment.MedianBlur)
