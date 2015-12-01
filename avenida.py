@@ -8,12 +8,10 @@ from src.domain.line import Line
 from src.domain.point import Point
 from src.config.configCam import ConfigCam
 
-arrayPoly = []
+from src.channelBuffer.channelBufferMqtt import ChannelBufferMqtt
 
 
-
-_array = [[[217, 74], [244, 457]], [[244, 457], [73, 462]], [[73, 462], [42, 78]], [[42, 78], [219, 77]]]
-
+_array = [[[579, 506], [1038, 516]], [[1038, 516], [681, 715]], [[681, 715], [434, 713]], [[434, 713], [253, 475]], [[253, 475], [580, 506]]]
 
 arrayPoly = []
 
@@ -25,7 +23,10 @@ arrayPoly.insert(0, poly)
 for i in _array:
     poly.addLine(Line(Point(i[0][0],i[0][1]), Point(i[1][0],i[1][1])))
 
-stream = Video('videos/videoSalaUX.webm');
+channelBuffer = ChannelBufferMqtt()
+
+stream = Video('videos/videoContagem2.wmv');
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
+stream.setChannelBuffer(channelBuffer)
 stream.play()

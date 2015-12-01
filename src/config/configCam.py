@@ -12,13 +12,29 @@ class ConfigCam(Config):
 
     def configure(self):
         self.medianBlur = self.getInt('Moviment.medianBlur')
+        Moviment.medianBlur = self.medianBlur
+
         self.kernelVertical = self.getInt('Moviment.kernelVertical')
+        Moviment.kernelVertical = self.kernelVertical
+
         self.kernelHorizontal = self.getInt('Moviment.kernelHorizontal')
+        Moviment.kernelHorizontal = self.kernelHorizontal
+
         self.dilationInterator = self.getInt('Moviment.dilationInterator')
+        Moviment.dilationInterator = self.dilationInterator
+
         self.erodeInterator = self.getInt('Moviment.erodeInterator')
+        Moviment.erodeInterator = self.erodeInterator
+
         self.deslocamentoMax = self.getInt('Identify.deslocamentoMax')
+        Identify.deslocamentoMax = self.deslocamentoMax
+
         self.minArea = self.getInt('Moviment.minArea')
+        Moviment.minArea = self.minArea
+
         self.maxArea = self.getInt('Moviment.maxArea')
+        Moviment.maxArea = self.maxArea
+
         self.modFrames = self.getInt('Main.ModFrames')
 
 

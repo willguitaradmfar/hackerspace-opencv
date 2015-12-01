@@ -18,5 +18,4 @@ class ChannelBufferMqtt(ChannelBuffer):
     def run(self):
         b64 = base64.encodestring(cv2.imencode('.png',self.frame)[1])
         client.publish("frame", b64)
-
         client.publish("counterPoly", json.dumps(self.counterPoly.areas))

@@ -54,7 +54,7 @@ class mouseTest():
         cv2.namedWindow('image')
         cv2.setMouseCallback('image', self.lineCallback)
 
-        cap = cv2.VideoCapture("videos/videoContagem.mp4")
+        cap = cv2.VideoCapture("videos/videoSalaUX.webm")
 
         while(1):
 
