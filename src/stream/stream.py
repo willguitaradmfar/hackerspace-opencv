@@ -113,7 +113,7 @@ class Stream:
                     poly.draw()
 
             if self.channelBuffer != None:
-                self.channelBuffer.setFrame(frame, counterPoly)
+                self.channelBuffer.setFrame(frame, counterPoly, centers)
 
 
 

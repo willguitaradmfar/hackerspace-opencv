@@ -22,15 +22,20 @@ module.exports = function (io) {
         client.on('message', function (topic, message) {
             console.log(message.toString().length);
 
-            if(frame)return;
-
-            setTimeout(function () {
-              frame = undefined;
-            }, 1000 * .5)
-
             frame = message.toString();
+        });
 
-            socket.emit('frame', frame);
+        var recursive = function () {
+            setTimeout(function (argument) {
+                socket.emit('frame', frame);
+                recursive();
+            }, 1000 * 0.3);
+        };
+
+        recursive();
+
+        socket.on('disconnect', function () {
+            client.end();
         });
 
     });

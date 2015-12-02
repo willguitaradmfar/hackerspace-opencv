@@ -19,6 +19,10 @@ module.exports = function (io) {
             socket.emit('counterPoly', JSON.parse(message.toString()));
         });
 
+        socket.on('disconnect', function () {
+            client.end();
+        });
+
     });
     return router;
 };

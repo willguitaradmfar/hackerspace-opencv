@@ -8,6 +8,8 @@ from src.domain.line import Line
 from src.domain.point import Point
 from src.config.configCam import ConfigCam
 
+from src.channelBuffer.channelBufferMqtt import ChannelBufferMqtt
+
 arrayPoly = []
 
 
@@ -25,7 +27,11 @@ arrayPoly.insert(0, poly)
 for i in _array:
     poly.addLine(Line(Point(i[0][0],i[0][1]), Point(i[1][0],i[1][1])))
 
+
+channelBuffer = ChannelBufferMqtt()
+
 stream = Video('videos/videoSalaUX.webm');
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
+stream.setChannelBuffer(channelBuffer)
 stream.play()

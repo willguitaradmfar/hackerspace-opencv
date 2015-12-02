@@ -8,8 +8,9 @@ class ChannelBuffer:
     def run(self):
         print('Nao deve fazer nada')
 
-    def setFrame(self, frame, counterPoly):
+    def setFrame(self, frame, counterPoly, centers):
         self.frame = frame
+        self.centers = centers
         self.counterPoly = counterPoly
         self.thr = threading.Thread(target=self.run, args=(), kwargs={})
         self.thr.start()

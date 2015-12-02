@@ -1,14 +1,27 @@
 $(function () {
 
-    var socket = io.connect('http://localhost');
+    var socket = io.connect();
 
     var heatmap = h337.create({
-        container: document.querySelector('body')
+        maxOpacity : 0.5,
+        minOpacity : 0,
+        container: document.querySelector('#heat')
     });
 
+    heatmap.setData({
+      max : 5,
+      data : []
+    })
+
     socket.on('heat', function (data) {
-        console.log(data);
-        heatmap.addData(data);
+
+        for(var i in data){
+          data[i] = JSON.parse(data[i]);
+          data[i].value = 200;
+        }
+
+        heatmap.addData(data)
+
     });
 
     socket.on('frame', function (data) {

@@ -1,4 +1,5 @@
 import numpy as np
+import json
 
 from src.domain.box import Box
 
@@ -21,3 +22,9 @@ class Center(Box):
         percH = 100 - percW
 
         return percW,percH
+
+    def toJSON(self):
+        d = dict()
+        d['x'] = self.px
+        d['y'] = self.py
+        return json.dumps(d)
