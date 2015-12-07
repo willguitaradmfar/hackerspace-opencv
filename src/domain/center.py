@@ -27,4 +27,6 @@ class Center(Box):
         d = dict()
         d['x'] = self.px
         d['y'] = self.py
+        d['value'] = self.getArea()
+        d['IDD'] = self.id
         return json.dumps(d)

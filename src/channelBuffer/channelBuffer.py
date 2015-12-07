@@ -3,7 +3,8 @@ import threading
 
 class ChannelBuffer:
     def __init__(self):
-        return
+        self.centers = []
+        
 
     def run(self):
         print('Nao deve fazer nada')

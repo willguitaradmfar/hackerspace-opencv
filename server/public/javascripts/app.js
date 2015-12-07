@@ -5,6 +5,8 @@ $(function () {
     var heatmap = h337.create({
         maxOpacity : 0.5,
         minOpacity : 0,
+        max: 100,
+        min: 0,
         container: document.querySelector('#heat')
     });
 

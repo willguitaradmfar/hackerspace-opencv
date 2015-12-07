@@ -12,3 +12,6 @@ class Box:
 
     def setLabel(self, label):
         label.draw(Point(self.x + self.w, self.y));
+
+    def getArea(self):
+        return self.w * self.h

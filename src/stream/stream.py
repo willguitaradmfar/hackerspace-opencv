@@ -47,30 +47,31 @@ class Stream:
 
         self.config.configure();
 
-        cv2.namedWindow('frame', 2048)
-        cv2.resizeWindow("frame", 1024, 768)
+        if self.config.window == True:
+            cv2.namedWindow('frame', 2048)
+            cv2.resizeWindow("frame", 1024, 768)
 
-        cv2.namedWindow('dilation', 2048)
-        cv2.resizeWindow("dilation", 1024, 768)
+            cv2.namedWindow('dilation', 2048)
+            cv2.resizeWindow("dilation", 1024, 768)
 
-        cv2.namedWindow('erosao', 2048)
-        cv2.resizeWindow("erosao", 1024, 768)
+            cv2.namedWindow('erosao', 2048)
+            cv2.resizeWindow("erosao", 1024, 768)
 
-        cv2.namedWindow('gauss', 2048)
-        cv2.resizeWindow("gauss", 1024, 768)
+            cv2.namedWindow('gauss', 2048)
+            cv2.resizeWindow("gauss", 1024, 768)
 
-        cv2.namedWindow('borda', 2048)
-        cv2.resizeWindow("borda", 1024, 768)
+            cv2.namedWindow('borda', 2048)
+            cv2.resizeWindow("borda", 1024, 768)
 
-        cv2.createTrackbar("Gauss", "gauss", self.config.medianBlur, 25, self.config.gaussCallback)
-        cv2.createTrackbar("Vertical", "dilation", self.config.kernelVertical, 15, self.config.verticalCallback)
-        cv2.createTrackbar("Horizontal", "dilation", self.config.kernelHorizontal, 15, self.config.horizontalCallback)
-        cv2.createTrackbar("Dilation", "dilation", self.config.dilationInterator, 15, self.config.dilationCallback)
-        cv2.createTrackbar("Erode", "erosao", self.config.erodeInterator, 15, self.config.erodeCallback)
-        cv2.createTrackbar("Deslocamento Max.", "frame", self.config.deslocamentoMax, 100, self.config.velocidadeCallback)
-        cv2.createTrackbar("Area Minima", "frame", self.config.minArea, 20000, self.config.minAreaCallback)
-        cv2.createTrackbar("Area Maxima", "frame", self.config.maxArea, 200000, self.config.maxAreaCallback)
-        cv2.createTrackbar("Velocidade do Video", "frame", self.config.modFrames, 15, self.config.modFramesCallback)
+            cv2.createTrackbar("Gauss", "gauss", self.config.medianBlur, 25, self.config.gaussCallback)
+            cv2.createTrackbar("Vertical", "dilation", self.config.kernelVertical, 15, self.config.verticalCallback)
+            cv2.createTrackbar("Horizontal", "dilation", self.config.kernelHorizontal, 15, self.config.horizontalCallback)
+            cv2.createTrackbar("Dilation", "dilation", self.config.dilationInterator, 15, self.config.dilationCallback)
+            cv2.createTrackbar("Erode", "erosao", self.config.erodeInterator, 15, self.config.erodeCallback)
+            cv2.createTrackbar("Deslocamento Max.", "frame", self.config.deslocamentoMax, 100, self.config.velocidadeCallback)
+            cv2.createTrackbar("Area Minima", "frame", self.config.minArea, 20000, self.config.minAreaCallback)
+            cv2.createTrackbar("Area Maxima", "frame", self.config.maxArea, 200000, self.config.maxAreaCallback)
+            cv2.createTrackbar("Velocidade do Video", "frame", self.config.modFrames, 15, self.config.modFramesCallback)
 
         count = 0
         cframe = 0
@@ -90,7 +91,9 @@ class Stream:
 
             moviment.setFrame(frame)
             moviment.preProcess()
-            cv2.imshow('erosao', moviment.erosion)
+
+            if self.config.window == True:
+                cv2.imshow('erosao', moviment.erosion)
 
 
             centers = identify.getPointsMap(self.polys)
@@ -116,11 +119,11 @@ class Stream:
                 self.channelBuffer.setFrame(frame, counterPoly, centers)
 
 
-
-            cv2.imshow('frame', frame)
-            cv2.imshow('gauss', moviment.MedianBlur)
-            cv2.imshow('dilation', moviment.dilation)
-            cv2.imshow('borda', moviment.erosion)
+            if self.config.window == True:
+                cv2.imshow('frame', frame)
+                cv2.imshow('gauss', moviment.MedianBlur)
+                cv2.imshow('dilation', moviment.dilation)
+                cv2.imshow('borda', moviment.erosion)
 
             k = cv2.waitKey(30) & 0xff
             if k == 27:

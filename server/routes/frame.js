@@ -20,8 +20,6 @@ module.exports = function (io) {
         });
 
         client.on('message', function (topic, message) {
-            console.log(message.toString().length);
-
             frame = message.toString();
         });
 
@@ -29,7 +27,7 @@ module.exports = function (io) {
             setTimeout(function (argument) {
                 socket.emit('frame', frame);
                 recursive();
-            }, 1000 * 0.3);
+            }, 1000 * 0.4);
         };
 
         recursive();

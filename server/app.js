@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
-
-
 var app = express();
 
 var server = require('http').Server(app);

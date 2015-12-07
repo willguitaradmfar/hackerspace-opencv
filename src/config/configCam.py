@@ -37,6 +37,8 @@ class ConfigCam(Config):
 
         self.modFrames = self.getInt('Main.ModFrames')
 
+        self.window = self.getInt('window')
+
 
     def gaussCallback(self, value):
         try:

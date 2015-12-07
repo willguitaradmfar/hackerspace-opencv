@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 
 from src.stream.video import Video
+from src.stream.cam import Cam
 
 from src.domain.polygon import Polygon
 from src.domain.line import Line
@@ -25,7 +26,7 @@ for i in _array:
 
 channelBuffer = ChannelBufferMqtt()
 
-stream = Video('videos/japao.mp4');
+stream = Video("videos/japao.mp4");
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
 stream.setChannelBuffer(channelBuffer)

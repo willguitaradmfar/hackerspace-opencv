@@ -9,3 +9,5 @@ Identify.deslocamentoMax = 20
 moviment.minarea = 300
 moviment.maxarea = 2000
 main.modframes = 2
+
+window=0
