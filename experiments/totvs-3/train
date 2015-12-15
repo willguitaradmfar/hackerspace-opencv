@@ -1,0 +1,3 @@
+# opencv_traincascade -data data -vec totvs2.vec -bg bg.txt -numPos 479 -numNeg 1000 -numStages 1 -w 40 -h 55
+# rm -Rf data/*
+opencv_traincascade -data data -vec totvs.vec -bg bg.txt -numPos 2 -numNeg 200 -numStages 15 -w 40 -h 55 -maxFalseAlarmRate 0.08 -featureType LBP

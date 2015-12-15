@@ -26,7 +26,7 @@ for i in _array:
 
 channelBuffer = ChannelBufferMqtt()
 
-stream = Video("videos/japao.mp4");
+stream = Video("/home/william/Desktop/VID_20151214_174032937.mp4");
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
 stream.setChannelBuffer(channelBuffer)

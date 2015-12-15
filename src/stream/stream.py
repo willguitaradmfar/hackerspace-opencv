@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 
 from src.hands.moviment import Moviment
+from src.hands.detectCascade import DetectCascade
 
 from src.hands.identify import Identify
 
@@ -38,7 +39,7 @@ class Stream:
 
     def play(self):
 
-        moviment = Moviment(50, 50,100, (2 * 1000));
+        moviment = DetectCascade(50, 50,100, (2 * 1000));
 
         identify = Identify(20)
         identify.setMoviment(moviment)
@@ -47,9 +48,11 @@ class Stream:
 
         self.config.configure();
 
+        cv2.namedWindow('frame', 2048)
+        cv2.resizeWindow("frame", 1024, 768)
+
         if self.config.window == True:
-            cv2.namedWindow('frame', 2048)
-            cv2.resizeWindow("frame", 1024, 768)
+
 
             cv2.namedWindow('dilation', 2048)
             cv2.resizeWindow("dilation", 1024, 768)
@@ -118,9 +121,9 @@ class Stream:
             if self.channelBuffer != None:
                 self.channelBuffer.setFrame(frame, counterPoly, centers)
 
-
-            if self.config.window == True:
                 cv2.imshow('frame', frame)
+            if self.config.window == True:
+
                 cv2.imshow('gauss', moviment.MedianBlur)
                 cv2.imshow('dilation', moviment.dilation)
                 cv2.imshow('borda', moviment.erosion)

@@ -1,0 +1,1 @@
+opencv_createsamples -info info.dat -w 40 -h 55 -vec totvs2.vec -pngoutput -maxxangle 0.1 -maxyangle 0.1 -maxzangle 0.1

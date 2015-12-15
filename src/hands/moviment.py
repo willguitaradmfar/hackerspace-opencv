@@ -25,6 +25,7 @@ class Moviment:
         Moviment.minArea = minArea
         Moviment.maxArea = maxArea
 
+
     def setFrame(self, frame):
         self.frame = frame
 

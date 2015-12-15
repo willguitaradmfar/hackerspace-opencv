@@ -1,0 +1,1 @@
+opencv_createsamples -info info.dat -num 550 -w 48 -h 24 -vec cars.vec 
