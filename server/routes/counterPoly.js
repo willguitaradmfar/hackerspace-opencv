@@ -1,28 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('./mongo.js')();
+var net = require('net');
 
-var schema = mongoose.Schema({
-    name: String,
-    qtde: Number,
-    dtcreate: {
-        type: 'Date',
-        default: Date.now
-    }
-});
-
-schema.statics.findByName = function (name) {
-    return this.findOne({
-        'name': name
-    });
-};
-
-var Count = mongoose.model('Count', schema);
 
 module.exports = function (io) {
 
-    var counterPoly;
+    var counterPoly = {};
 
     var mqtt = require('mqtt');
 
@@ -39,25 +23,34 @@ module.exports = function (io) {
             _counterPoly = JSON.parse(message.toString());
 
             for (var i in _counterPoly) {
-                if(counterPoly[i] && _counterPoly[i] == counterPoly[i]) continue;
-                findCounter(i, _counterPoly[i])
+                if (counterPoly[i] && _counterPoly[i] == counterPoly[i]) continue;
+                socketProtheus(i, _counterPoly[i])
             }
 
             counterPoly = _counterPoly;
         });
 
-        var findCounter = function (name, qtde) {
-            new Count({
-                name: name,
-                qtde: qtde
-            }).save();
-        }
+        var socketProtheus = function (name, qtde) {
+          // try{
+          //   var c = net.connect({
+          //       host: '172.16.32.94',
+          //       port: 5611
+          //   }, function () {
+          //       console.log('connected to server!');
+          //       c.write([qtde, name+'\r\n'].join(';'));
+          //   });
+          // }catch(e){
+          //   console.error(e);
+          //
+          // }
+        };
+
 
         var recursive = function () {
             setTimeout(function (argument) {
                 socket.emit('counterPoly', counterPoly);
                 recursive();
-            }, 1000 * 0.4);
+            }, 1000 * 0.3);
         };
 
         recursive();

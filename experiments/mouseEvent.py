@@ -54,11 +54,14 @@ class mouseTest():
         cv2.namedWindow('image')
         cv2.setMouseCallback('image', self.lineCallback)
 
-        cap = cv2.VideoCapture("videos/videoSalaUX.webm")
+        cap = cv2.VideoCapture("../videos/japao.mp4")
 
         while(1):
 
-            ret, frame = cap.read()
+            ret, _frame = cap.read()
+
+            height, width = _frame.shape[:2]
+            frame = cv2.resize(_frame,(908, height/2),fx=2, fy=2)
 
             for line in self.lines:
                 cv2.line(frame,(line[0][0], line[0][1]),(line[1][0], line[1][1]),(255,0,0),3)

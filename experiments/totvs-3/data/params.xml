@@ -2,7 +2,7 @@
 <opencv_storage>
 <params>
   <stageType>BOOST</stageType>
-  <featureType>LBP</featureType>
+  <featureType>HOG</featureType>
   <height>55</height>
   <width>40</width>
   <stageParams>
@@ -13,6 +13,6 @@
     <maxDepth>1</maxDepth>
     <maxWeakCount>100</maxWeakCount></stageParams>
   <featureParams>
-    <maxCatCount>256</maxCatCount>
-    <featSize>1</featSize></featureParams></params>
+    <maxCatCount>0</maxCatCount>
+    <featSize>36</featSize></featureParams></params>
 </opencv_storage>

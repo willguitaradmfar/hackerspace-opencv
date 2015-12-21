@@ -1,0 +1,84 @@
+/* Geral */
+
+body {
+	background-color: #e0e5ea;
+	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 12px;
+	color: #6a727f;
+}
+.containerContent {
+	padding: 70px 0 0;
+}
+.breadcrumb {
+	background-color: #ffffff;
+	font-size: 11px;
+	font-weight: bold;
+}
+.bordaWidget {
+	border: 1px solid #c5cbcd;
+	border-radius: 3px;
+	box-shadow: none;
+}
+.noPadding {
+	padding: 0;
+}
+h1 {
+	color: #0c9abe;
+	font-size: 22px;
+	text-transform: uppercase;
+	font-weight: normal;
+	margin-bottom: 20px;
+	margin-top: 0;
+}
+h2 {
+	color: #111111;
+	font-size: 18px;
+	font-weight: normal;
+	margin-bottom: 20px;
+	margin-top: 0;
+}
+.periodo {
+	float: left;
+	margin: 0;
+	padding: 5px 10px 0 0;
+}
+.content {
+	/*background-color: #8bccde;*/
+	margin: 10px 0 0;
+	padding: 0px;
+}
+.btn-group {
+	margin: 0 10px 0 0;
+}
+/* Menu Topo */
+.menuTopo {
+	background: linear-gradient(to bottom, #09718b 0%, #08667d 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-bottom: 1px solid #04323e;
+	height: 35px;
+}
+.nav.navbar-nav.navbar-right a {
+	color: #fff;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+	color: #fff;
+}
+/* Menu Contexto */
+.sidebar {
+	background-color: #ffffff;
+	border: 1px solid #c5cbcd;
+	border-radius: 3px;
+	padding: 10px 0;
+}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active {
+	background-color: #189abe;
+	color: #fff;
+}
+.nav > li > a:focus, .nav > li > a:hover, a:focus {
+	background-color: #d1ebf2;
+	color: #6a727f;
+	text-decoration: none;
+}
+.nav a {
+	color: #6a727f;
+	text-decoration: none;
+}

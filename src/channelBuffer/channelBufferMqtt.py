@@ -8,7 +8,7 @@ import paho.mqtt.client as paho
 
 client = paho.Client()
 
-# client.connect("127.0.0.1", 1884, 60)
+client.connect("127.0.0.1", 1884, 60)
 
 from src.channelBuffer.channelBuffer import ChannelBuffer
 

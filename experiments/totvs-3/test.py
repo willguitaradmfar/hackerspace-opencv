@@ -1,11 +1,11 @@
 # train.py
 import cv2, sys, numpy, os
 size = 4
-fn_haar = 'data/cascade.xml'
+fn_haar = 'HS.xml'
 
 (im_width, im_height) = (112, 92)
 haar_cascade = cv2.CascadeClassifier(fn_haar)
-webcam = cv2.VideoCapture("/home/william/Desktop/VID_20151214_180050848.mp4")
+webcam = cv2.VideoCapture(0)
 
 # The program loops until it has 20 images of the face.
 

@@ -18,7 +18,9 @@ class Stream:
 
     def getFrame(self):
         ret, frame = self.cap.read()
-        return frame
+        height, width = frame.shape[:2]
+        res = cv2.resize(frame,(908, height/2),fx=2, fy=2)
+        return res
 
     def setChannelBuffer(self, channelBuffer):
         self.channelBuffer = channelBuffer
@@ -39,7 +41,7 @@ class Stream:
 
     def play(self):
 
-        moviment = DetectCascade(50, 50,100, (2 * 1000));
+        moviment = Moviment(50, 50,100, (2 * 1000));
 
         identify = Identify(20)
         identify.setMoviment(moviment)

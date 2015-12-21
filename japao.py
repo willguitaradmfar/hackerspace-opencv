@@ -12,21 +12,30 @@ from src.config.configCam import ConfigCam
 from src.channelBuffer.channelBufferMqtt import ChannelBufferMqtt
 
 
-_array = [[[579, 506], [1038, 516]], [[1038, 516], [681, 715]], [[681, 715], [434, 713]], [[434, 713], [253, 475]], [[253, 475], [580, 506]]]
+_array = [[[188, 238], [723, 260]], [[723, 260], [507, 350]], [[507, 350], [316, 351]], [[316, 351], [187, 239]]]
+
+_arrayD = [[[348, 205], [599, 214]], [[599, 214], [603, 247]], [[603, 247], [280, 234]], [[280, 234], [348, 205]]]
 
 arrayPoly = []
 
 poly = Polygon()
 poly.setName("ForaDaFaixa")
 
+polyD = Polygon()
+polyD.setName("Faixa")
+
 arrayPoly.insert(0, poly)
+arrayPoly.insert(0, polyD)
 
 for i in _array:
     poly.addLine(Line(Point(i[0][0],i[0][1]), Point(i[1][0],i[1][1])))
 
+for i in _arrayD:
+    polyD.addLine(Line(Point(i[0][0],i[0][1]), Point(i[1][0],i[1][1])))
+
 channelBuffer = ChannelBufferMqtt()
 
-stream = Video("/home/william/Desktop/VID_20151214_174032937.mp4");
+stream = Video("videos/japao.mp4");
 stream.setConfig(ConfigCam())
 stream.setPolys(arrayPoly)
 stream.setChannelBuffer(channelBuffer)

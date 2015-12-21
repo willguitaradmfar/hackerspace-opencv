@@ -6,10 +6,6 @@ module.exports = function (io) {
 
     var frame;
 
-    // client.on('connect', function () {
-    //   client.subscribe('frame');
-    // });
-
     io.on('connection', function (socket) {
 
         console.log(['mqtt://', process.env.MQTT].join(''));
@@ -27,7 +23,7 @@ module.exports = function (io) {
             setTimeout(function (argument) {
                 socket.emit('frame', frame);
                 recursive();
-            }, 1000 * 0.4);
+            }, 1000 * 0.3);
         };
 
         recursive();

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>POC - Varejo</title>
+</head>
+
+<!-- Latest compiled and minified CSS -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Estilo CSS -->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top menuTopo">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" src="images/logo_totvs.png" style="float:left;">
+					<span style="color:#fff; font-size:16px; padding:0px 0px 0px 15px">TOTVS VAREJO</span>
+				</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container containerContent">
+		<div class="row">
+			<div class="col-md-12">
+			</div>
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#">Painel geral</a></li>
+					<li><a href="#">Mapas de calor</a></li>
+					<li><a href="#">Informações demográficas</a></li>
+					<li><a href="#">Comportamento</a></li>
+					<li><a href="#">Fluxo de visitantes</a></li>
+				</ul>
+			</div>
+			<div class="col-md-10">
+				<div class="col-md-12">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2 class="periodo">Selecione o período:</h2>
+							<div class="col-md-3 input-group">
+								<input type="text" class="form-control" value="15/12/2015 - 31/12/2015">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button">
+										<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Número de visitantes</h2>
+							<div class="content">
+								<canvas id="myChart" width="900" height="400"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Mapa de calor</h2>
+
+							<!-- Split button -->
+							<div class="btn-group">
+								<button type="button" class="btn btn-default">Hora</button>
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Data</a></li>
+								</ul>
+							</div>
+							<div class="content" id="heat">
+								<img src="/frame" alt="" id="frame" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-12 noPadding">
+						<div class="bordaWidget panel panel-default">
+							<div class="panel-body">
+								<h2>Tempo médio na loja</h2>
+								<div class="content">
+									<div style="text-align: center;">
+										<img src="images/graficos/grafico_tempo_medio.png" alt="" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-6">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Horários de pico</h2>
+							<div class="content">
+								<img src="images/graficos/grafico_horario_pico.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Visitantes que efetuaram compras</h2>
+							<div class="content">
+								<img src="images/graficos/grafico_visitantes_compraram.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Idade dos visitantes</h2>
+							<div class="content">
+								<img src="images/graficos/grafico_idade_visitantes.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="bordaWidget panel panel-default">
+						<div class="panel-body">
+							<h2>Novos visitantes X visitantes recorrentes</h2>
+							<div class="content">
+								<img src="images/graficos/grafico_visitantes.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js" charset="utf-8"></script>
+	<script src="/javascripts/Chart.Line.js" charset="utf-8"></script>
+	<script src="/javascripts/heatmap.min.js" charset="utf-8"></script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
+
+	<script src="/javascripts/app.js" charset="utf-8"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+
+</html>

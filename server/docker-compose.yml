@@ -6,16 +6,9 @@ web:
    - .:/app
   links:
    - mqtt
-   - mongo
   environment:
    - MQTT=mqtt
-   - MONGO=mongo
 mqtt:
   image: toke/mosquitto
   ports:
    - "1884:1883"
-
-mongo:
-  image: mongo
-  ports:
-   - "27017:27017"
