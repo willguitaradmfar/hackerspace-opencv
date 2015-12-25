@@ -31,8 +31,8 @@ class Moviment:
 
     def preProcess(self):
 
-        if self.firstFrame ==  None:
-                self.firstFrame = self.frame
+        #if self.firstFrame ==  None:
+        #        self.firstFrame = self.frame
 
         gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 
@@ -43,7 +43,7 @@ class Moviment:
         fgmask = self.backgroundSubtractorKNN.apply(self.MedianBlur)
 
         #binarizacao da imagem
-        thresh = cv2.threshold(fgmask, Moviment.threshold, 255, cv2.THRESH_BINARY)[1]
+        thresh = cv2.threshold(fgmask, 150, 255, cv2.THRESH_BINARY)[1]
 
         #o blur remove pequenos ruidos do background subtraction
         #MedianBlur = cv2.medianBlur(thresh, Moviment.medianBlur)
