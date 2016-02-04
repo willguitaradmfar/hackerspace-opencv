@@ -18,9 +18,9 @@ class Stream:
 
     def getFrame(self):
         ret, frame = self.cap.read()
-        height, width = frame.shape[:2]
-        res = cv2.resize(frame,(908, height/2),fx=2, fy=2)
-        return res
+        #height, width = frame.shape[:2]
+        #res = cv2.resize(frame,(908, height/2),fx=2, fy=2)
+        return frame
 
     def setChannelBuffer(self, channelBuffer):
         self.channelBuffer = channelBuffer
@@ -29,8 +29,8 @@ class Stream:
         self.config = config
 
     def finish(self):
-        if self.channelBuffer != None:
-            self.channelBuffer.thr.join()
+        #if self.channelBuffer != None:
+            #self.channelBuffer.thr.join()
 
         self.config.save()
         self.cap.release()
@@ -53,6 +53,7 @@ class Stream:
         cv2.namedWindow('frame', 2048)
         cv2.resizeWindow("frame", 1024, 768)
 
+        
         if self.config.window == True:
 
 
@@ -68,6 +69,7 @@ class Stream:
             cv2.namedWindow('borda', 2048)
             cv2.resizeWindow("borda", 1024, 768)
 
+            
             cv2.createTrackbar("Gauss", "gauss", self.config.medianBlur, 25, self.config.gaussCallback)
             cv2.createTrackbar("Vertical", "dilation", self.config.kernelVertical, 15, self.config.verticalCallback)
             cv2.createTrackbar("Horizontal", "dilation", self.config.kernelHorizontal, 15, self.config.horizontalCallback)
@@ -95,12 +97,13 @@ class Stream:
                 continue
 
             moviment.setFrame(frame)
+            #pre processamento da imagem
             moviment.preProcess()
 
             if self.config.window == True:
                 cv2.imshow('erosao', moviment.erosion)
 
-
+            #Identifica os centros dos objetos identificados
             centers = identify.getPointsMap(self.polys)
 
             if self.polys != None:

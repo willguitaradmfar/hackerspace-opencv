@@ -31,6 +31,7 @@ class Identify:
     # RETORNA UM ARRAY DE CENTROIDES IDENTIFICADOS COM ID E COM A AREA QUE PERTENCE
     # A AREA E PASSADO EM FORMA DE DICIONARIO DE OBJETOS [Polygon]
     def getPointsMap(self, arrayPoly):
+        print(arrayPoly)
         if self._centers == None:
             self._centers = self.moviment.getCenters()
             return None
@@ -49,24 +50,28 @@ class Identify:
                     center.id = _center.id
                     center.maxH = _center.maxH
                     center.maxA = _center.maxA
-                    cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
-                    cv2.rectangle(self.moviment.frame,(center.x+1,center.y+1),(center.x+center.w+1,center.y+center.h+1),(255,255,255),1)
-
+                    
                     hasPoly = False
                     for poly in arrayPoly:
                         if poly.containsPoint(Point(center.px, center.py)):
-                            area = center.w * center.h
-                            if center.maxH < h:
-                                center.maxH = h
-                            if center.maxA < area:
-                                center.maxA = area
-
-                            texts = [("ID: %0.0f" % (center.id)), (poly.name)]
                             hasPoly = True
-                            label = Label(texts)
-                            label.setFrame(self.moviment.frame)
-                            center.setLabel(label)
-                            center.setPoly(poly)
+                            if poly.clas == "off":
+                                pass
+                            else:
+                                area = center.w * center.h
+                                if center.maxH < h:
+                                    center.maxH = h
+                                if center.maxA < area:
+                                    center.maxA = area
+
+                                texts = [("ID: %0.0f" % (center.id)), (poly.name)]
+                                label = Label(texts)
+                                label.setFrame(self.moviment.frame)
+                                center.setLabel(label)
+                                center.setPoly(poly)
+                                cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
+                                cv2.rectangle(self.moviment.frame,(center.x+1,center.y+1),(center.x+center.w+1,center.y+center.h+1),(255,255,255),1)
+
                     if not hasPoly:
                         area = center.w * center.h
                         texts = [("ID: %0.0f" % (center.id)), ("A: %0.0f" % area), ("H: %0.0f" % h), ("Sem area")]
@@ -74,6 +79,9 @@ class Identify:
                         label.setFrame(self.moviment.frame)
                         center.setLabel(label)
                         center.setPoly(polyDefault)
+                        cv2.rectangle(self.moviment.frame,(center.x,center.y),(center.x+center.w,center.y+center.h),self.color,1)
+                        cv2.rectangle(self.moviment.frame,(center.x+1,center.y+1),(center.x+center.w+1,center.y+center.h+1),(255,255,255),1)
+
 
         self._centers = centers
 

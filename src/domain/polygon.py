@@ -12,6 +12,8 @@ class Polygon:
         self.lines = []
         self.color = color
         self.name = "Sem nome"
+        #classe do poligono, pode ser count=contagem de pessoas, line=deteccao de filas, off=nao considerar movimento 
+        self.clas = "" 
 
     def setLabel(self, label):
         label.setColor(self.color)
@@ -31,4 +33,13 @@ class Polygon:
 
     def draw(self):
         for line in self.lines:
+            if self.clas == "off":
+                self.color = color=(0,0,255)
+            if self.clas == "line":
+                self.color = color=(255,0,0)
+            if self.clas == "count":
+                self.color = color=(0,255,0)
             cv2.line(self.frame,(line.pointI.x, line.pointI.y),(line.pointF.x, line.pointF.y),self.color,3)
+
+    def setClass(self,clas):
+        self.clas = clas
