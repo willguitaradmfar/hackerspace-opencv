@@ -24,6 +24,7 @@ class Moviment:
         Moviment.erodeInterator = 8
         Moviment.minArea = minArea
         Moviment.maxArea = maxArea
+        Moviment.dilation = None
 
 
     def setFrame(self, frame):
